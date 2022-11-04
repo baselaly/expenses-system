@@ -1,5 +1,5 @@
 import { Global, Module } from '@nestjs/common';
-import { JwtAuthService, PasswordService } from './services/index.service';
+import { JwtAuthService, PasswordService, HelperService, FileUploadService } from './services/index.service';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -32,7 +32,7 @@ import { Token } from './entities';
 		}),
 		TypeOrmModule.forFeature([User, Token])
 	],
-	exports: [JwtAuthService, PasswordService, UserRepository, TokenRepository],
-	providers: [JwtAuthService, PasswordService, UserRepository, TokenRepository]
+	exports: [JwtAuthService, PasswordService, FileUploadService, HelperService, UserRepository, TokenRepository],
+	providers: [JwtAuthService, PasswordService, FileUploadService, HelperService, UserRepository, TokenRepository]
 })
 export class SharedModule {}
