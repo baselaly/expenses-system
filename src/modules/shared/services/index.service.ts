@@ -1,1 +1,3 @@
-export { HttpExceptionFilter } from './http-exception.service';
+export { JwtAuthService } from './jwt-auth.service';
+export { DatabaseExceptionService } from './database-exception.service';
+export { PasswordService } from './password.service';

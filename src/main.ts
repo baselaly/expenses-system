@@ -2,7 +2,7 @@ import { NestFastifyApplication, FastifyAdapter } from '@nestjs/platform-fastify
 import { NestFactory } from '@nestjs/core';
 import compression from '@fastify/compress';
 import { AppModule } from './app.module';
-import { HttpExceptionFilter } from './modules/shared/services/index.service';
+import { HttpExceptionFilter } from './modules/shared/filters/index.filter';
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
