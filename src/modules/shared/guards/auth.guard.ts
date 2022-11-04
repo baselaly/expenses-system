@@ -24,7 +24,7 @@ export class JwtAuthGuard implements CanActivate {
 					relations: { user: true }
 				});
 
-				if (!userToken || !userToken?.user) {
+				if (!userToken || !userToken.user) {
 					throw new UnauthorizedException();
 				}
 
