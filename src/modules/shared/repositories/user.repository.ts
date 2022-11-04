@@ -2,8 +2,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FindOptionsSelect, FindOptionsWhere, Repository, UpdateResult, FindOptionsRelations } from 'typeorm';
 import { User } from '../entities/user.entity';
 import { DatabaseExceptionService } from '../services/database-exception.service';
+import { ICreate, IFindOne, IUpdate } from '../interfaces/index.interface';
 
-export class UserRepository {
+export class UserRepository implements ICreate<User>, IUpdate<User>, IFindOne<User> {
 	constructor(@InjectRepository(User) private readonly userRepository: Repository<User>) {}
 
 	public async findOne(params: { where: FindOptionsWhere<User>; select: FindOptionsSelect<User>; relations?: FindOptionsRelations<User> }): Promise<User> {
