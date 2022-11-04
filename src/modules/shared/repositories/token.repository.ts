@@ -1,9 +1,10 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, FindOptionsRelations, FindOptionsSelect, FindOptionsWhere, Repository, UpdateResult } from 'typeorm';
 import { Token } from '../entities/index';
+import { ICreate, IDelete, IFindOne, IUpdate } from '../interfaces/index.interface';
 import { DatabaseExceptionService } from '../services/database-exception.service';
 
-export class TokenRepository {
+export class TokenRepository implements ICreate<Token>, IUpdate<Token>, IDelete<Token>, IFindOne<Token> {
 	constructor(@InjectRepository(Token) private readonly tokenRepository: Repository<Token>) {}
 
 	public async findOne(params: { where: FindOptionsWhere<Token>; select: FindOptionsSelect<Token>; relations?: FindOptionsRelations<Token> }): Promise<Token> {
