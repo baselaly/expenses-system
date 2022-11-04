@@ -4,7 +4,7 @@ import { User } from '../entities/user.entity';
 import { DatabaseExceptionService } from '../services/database-exception.service';
 
 export class UserRepository {
-	constructor(@InjectRepository(User) private userRepository: Repository<User>) {}
+	constructor(@InjectRepository(User) private readonly userRepository: Repository<User>) {}
 
 	public async findOne(params: { where: FindOptionsWhere<User>; select: FindOptionsSelect<User>; relations?: FindOptionsRelations<User> }): Promise<User> {
 		try {
@@ -28,7 +28,6 @@ export class UserRepository {
 			const { where, data } = params;
 			return await this.userRepository.update(where, data);
 		} catch (err) {
-			console.log(err);
 			throw new DatabaseExceptionService(err.code, err.detail);
 		}
 	}

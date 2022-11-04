@@ -4,7 +4,7 @@ import { Token } from '../entities/index';
 import { DatabaseExceptionService } from '../services/database-exception.service';
 
 export class TokenRepository {
-	constructor(@InjectRepository(Token) private tokenRepository: Repository<Token>) {}
+	constructor(@InjectRepository(Token) private readonly tokenRepository: Repository<Token>) {}
 
 	public async findOne(params: { where: FindOptionsWhere<Token>; select: FindOptionsSelect<Token>; relations?: FindOptionsRelations<Token> }): Promise<Token> {
 		try {
@@ -15,7 +15,7 @@ export class TokenRepository {
 		}
 	}
 
-	public async create(params: { data: Omit<Token, 'id' | 'createdAt' | 'isBlocked'> }): Promise<Token> {
+	public async create(params: { data: Omit<Token, 'id' | 'createdAt'> }): Promise<Token> {
 		try {
 			return await this.tokenRepository.save(params.data);
 		} catch (err) {
