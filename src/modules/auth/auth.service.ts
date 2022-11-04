@@ -28,16 +28,15 @@ export class AuthService {
 	}
 
 	async login(loginDto: LoginDto): Promise<UserAuthData> {
-		const user = await this.userRepository.findOne({ where: { email: loginDto.email }, select: { id: true, name: true, password: true, phone: true, email: true } });
+		const user = await this.userRepository.findOne({ where: { email: loginDto.email }, select: { id: true, name: true, password: true, phone: true, email: true, isBlocked: true } });
 
-		if (!user || (await this.passwordService.comparePassword(loginDto.password, user.password)) === false) {
+		if (!user || (await this.passwordService.comparePassword(loginDto.password, user.password)) === false || user.isBlocked) {
 			throw new UnauthorizedException('WRONG_CREDENTIALS');
 		}
 
 		const token = await this.jwtAuthService.generateToken({ id: user.id, email: user.email, phone: user.phone, name: user.name });
 
-		await this.tokenRepository.delete({ where: { user } });
-		await this.tokenRepository.create({ data: { token, user } });
+		await Promise.all([this.tokenRepository.delete({ where: { user } }), this.tokenRepository.create({ data: { token, user } })]);
 
 		return { token };
 	}

@@ -1,6 +1,5 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { SuccessClass } from '../shared/classes/success.class';
-import { JwtAuthGuard } from '../shared/guards/index.guard';
 import { AuthService } from './auth.service';
 import { LoginDto, RegisterDto } from './dtos/index.dto';
 
@@ -16,11 +15,5 @@ export class AuthController {
 	@Post('login')
 	async login(@Body() loginDto: LoginDto): Promise<SuccessClass> {
 		return new SuccessClass(await this.authService.login(loginDto));
-	}
-
-	@Get('')
-	@UseGuards(JwtAuthGuard)
-	test(@Req() request: any) {
-		return { message: 'hello' };
 	}
 }
