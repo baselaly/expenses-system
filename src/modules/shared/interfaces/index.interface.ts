@@ -1,1 +1,1 @@
-export { ICreate, IDelete, IFindOne, IUpdate } from './repository.interface';
+export { ICreate, IDelete, IFindOne, IUpdate, IFindManyWithCount } from './repository.interface';

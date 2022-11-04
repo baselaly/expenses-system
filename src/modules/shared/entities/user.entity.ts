@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Token } from './token.entity';
+import { Token, Expense } from './index';
 
 @Entity('users')
 export class User {
@@ -26,4 +26,7 @@ export class User {
 
 	@OneToMany(() => Token, (token) => token.user)
 	tokens?: Token[];
+
+	@OneToMany(() => Expense, (expense) => expense.user)
+	expenses?: Expense[];
 }
