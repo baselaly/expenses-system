@@ -7,7 +7,7 @@ import { JwtAuthService } from '../services/jwt-auth.service';
 export class JwtAuthGuard implements CanActivate {
 	constructor(private reflector: Reflector, private readonly jwtAuthService: JwtAuthService, private readonly tokenRepository: TokenRepository) {}
 
-	async canActivate(context: ExecutionContext): Promise<any> {
+	async canActivate(context: ExecutionContext): Promise<boolean> {
 		let token: string = context.switchToHttp().getRequest().headers['authorization'];
 		const request = context.switchToHttp().getRequest();
 		if (token && token.startsWith('Bearer ')) {
@@ -33,8 +33,8 @@ export class JwtAuthGuard implements CanActivate {
 					throw new UnauthorizedException();
 				}
 
-				request.userData = result;
-				return request;
+				request.userData = { id: result.id, name: result.name, phone: result.phone, email: result.email };
+				return true;
 			} catch (err) {
 				throw new UnauthorizedException({ message: 'UNAUTHENTICATED' });
 			}

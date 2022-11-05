@@ -1,6 +1,6 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+import { User } from '../entities';
 
-export const AuthenticatedUser = createParamDecorator((data: string, ctx: ExecutionContext): any => {
-	const userData = ctx.switchToHttp().getRequest().userData;
-	return data && userData ? userData[data] : userData;
+export const AuthenticatedUser = createParamDecorator((data: string, ctx: ExecutionContext): Partial<User> => {
+	return ctx.switchToHttp().getRequest().userData;
 });

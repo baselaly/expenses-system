@@ -3,9 +3,9 @@ import { JwtAuthService, PasswordService, HelperService, FileUploadService } fro
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserRepository, TokenRepository } from './repositories/index.repository';
+import { UserRepository, TokenRepository, ExpenseRepository } from './repositories/index.repository';
 import { User } from './entities/user.entity';
-import { Token } from './entities';
+import { Expense, Token } from './entities';
 
 @Global()
 @Module({
@@ -30,9 +30,9 @@ import { Token } from './entities';
 			}),
 			inject: [ConfigService]
 		}),
-		TypeOrmModule.forFeature([User, Token])
+		TypeOrmModule.forFeature([User, Token, Expense])
 	],
-	exports: [JwtAuthService, PasswordService, FileUploadService, HelperService, UserRepository, TokenRepository],
-	providers: [JwtAuthService, PasswordService, FileUploadService, HelperService, UserRepository, TokenRepository]
+	exports: [JwtAuthService, PasswordService, FileUploadService, HelperService, UserRepository, TokenRepository, ExpenseRepository],
+	providers: [JwtAuthService, PasswordService, FileUploadService, HelperService, UserRepository, TokenRepository, ExpenseRepository]
 })
 export class SharedModule {}
