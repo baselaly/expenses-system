@@ -5,6 +5,7 @@ import compression from '@fastify/compress';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './modules/shared/filters/index.filter';
 import { ValidationPipe } from '@nestjs/common';
+import { join } from 'path';
 
 async function bootstrap() {
 	const fastifyAdapter = new FastifyAdapter();
@@ -22,6 +23,11 @@ async function bootstrap() {
 	);
 	app.useGlobalFilters(new HttpExceptionFilter());
 	app.register(compression, { encodings: ['gzip', 'deflate'] });
+
+	app.useStaticAssets({
+		root: join(__dirname, 'uploads')
+	});
+
 	await app.listen(process.env.PORT || 3000);
 }
 

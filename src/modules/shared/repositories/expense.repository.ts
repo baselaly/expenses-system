@@ -21,6 +21,7 @@ export class ExpenseRepository implements ICreate<Expense>, IUpdate<Expense>, ID
 			const { where, select, relations, skip, take } = params;
 			return await this.expenseRepository.findAndCount({ where, select, relations, skip, take });
 		} catch (err) {
+			console.log(err);
 			throw new DatabaseExceptionService(err.code, err.detail);
 		}
 	}

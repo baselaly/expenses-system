@@ -3,7 +3,7 @@ import { ExpenseService } from './expense.service';
 import { ExpenseController } from './expense.controller';
 
 @Module({
-  providers: [ExpenseService],
-  controllers: [ExpenseController]
+	providers: [ExpenseService],
+	controllers: [ExpenseController]
 })
 export class ExpenseModule {}
